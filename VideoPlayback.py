@@ -51,37 +51,37 @@ def find(pattern, path):
                 result.append(os.path.join(root, name))
     return result
 
-
-# print( os.path.exists("C:/Users/Dhruv/Desktop/Motivation/RiseShine.mp4"))
 title = []
-seqToPlay = int(seq)
+
+todayDate = datetime.datetime.today()
+print('Todays Date')
+print(todayDate)
+
+if lastPlayedDate.date() != todayDate.date():
+    seqToPlay = int(seq) + 1
+else:
+    seqToPlay = int(seq)
 
 while seqToPlay <= (int(lastSeq) + 1):
     regex = getVideoPathRegex(str(seqToPlay))
     print('regex ' + regex)
-    title = find(regex, "\\\\RGDDallas\\Video\\Intranet")
-    #title = find(regex, "C:\\Users\\Neelabh\\Documents\\RGD")
+    #title = find(regex, "\\\\RGDDallas\\Video\\Intranet")
+    title = find(regex, "C:\\Users\\Neelabh\\Documents\\RGD\\SampleVideo")
     print(title)
     if title:
         break
     else:
         seqToPlay = seqToPlay + 1
        
-print(title)
-
-todayDate = datetime.datetime.today()
-print('Todays Date')
-print(todayDate)
+print( title)
+print('seqToPlay: ' + str(seqToPlay))
 
 if seqToPlay < int(lastSeq):
     nextSeqToSave = seqToPlay
 else:
-    nextSeqToSave = 1
+    nextSeqToSave = 0
 
 print('nextSeqToSave ' + str(nextSeqToSave))
-if lastPlayedDate.date() != todayDate.date():
-    if nextSeqToSave != 1:
-        nextSeqToSave = nextSeqToSave + 1
 
 strToFile = str(nextSeqToSave) + ',' + datetime.date.strftime(datetime.date.today(), '%m-%d-%Y') + ',' + lastSeq
 print('strToFile: ' + strToFile)
@@ -91,5 +91,5 @@ file.write(strToFile.strip())
 file.close()
 
 if title:
-    p = subprocess.Popen(["C:/Program Files (x86)/VideoLAN/VLC/vlc.exe", title])
-    #p = subprocess.Popen(["C:/Program Files/VideoLAN/VLC/vlc.exe", title])
+    #p = subprocess.Popen(["C:/Program Files (x86)/VideoLAN/VLC/vlc.exe", title])
+    p = subprocess.Popen(["C:/Program Files/VideoLAN/VLC/vlc.exe", title])
